@@ -1,3 +1,63 @@
 h1{
     color: black;
 }
+
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  table, th, td {
+    border: 0px ;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+   color: #ccc;
+   font-size: 15px;
+  }
+
+  .category{
+    color: #764EE8;
+    background-color: #C8E8F6;
+    border-radius: 25px;
+  }
+
+  .search-bar {
+    position: relative;
+    width: 300px;
+    margin: 20px;
+  }
+  
+  .search-input {
+    width: 200%;
+    padding: 10px;
+    padding-right: 40px; /* space for the icon */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #999;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 550px;
+    top: 25%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    scale: 0.5;
+  }
+
+  ::placeholder {
+    color: rgb(181, 181, 181);
+    opacity: 1; /* Firefox */
+  }
