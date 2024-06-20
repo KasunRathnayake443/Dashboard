@@ -33,7 +33,7 @@ table {
 
   .search-bar {
     position: relative;
-    width: 300px;
+    width: 620px;
     margin: 20px;
   }
   
@@ -61,3 +61,18 @@ table {
     color: rgb(181, 181, 181);
     opacity: 1; 
   }
+  .maincontainer{
+display: flex;
+  }
+
+  .addbutton{
+    margin-top: 19px;
+    margin-left: 400px;
+    background-color: #764EE8;
+    width: 200px;
+    
+  }
+
+  
+
+  

@@ -26,13 +26,14 @@ function Products() {
   return (
     <div>
       <h1>Products</h1>
-
+  <div className='maincontainer'>
       <div className="search-bar">
       <input type="text" className="search-input" placeholder="Search" />
       <span className="search-icon"><img src={search} alt=''/></span>
     </div>
-    <div>
-    <Link to="/add-product"><button> Add Product</button></Link>
+    <div className='buttondiv'>
+    <Link to="/add-product"><button  className='addbutton'> Add Product</button></Link>
+    </div>
     </div>
       <table>
         <thead>

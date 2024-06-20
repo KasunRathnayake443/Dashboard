@@ -10,10 +10,28 @@ function ProductAdd() {
     price: 0
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-   
-    navigate('/', { replace: true }); 
+
+    try {
+      const response = await fetch('http://localhost:5000/products/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(product)
+      });
+
+      if (response.ok) {
+        const newProduct = await response.json();
+        console.log('Product added:', newProduct);
+        navigate('/', { replace: true }); 
+      } else {
+        console.error('Failed to add product:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   };
 
   const handleChange = (e) => {

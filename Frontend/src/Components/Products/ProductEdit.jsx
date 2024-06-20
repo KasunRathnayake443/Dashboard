@@ -40,7 +40,7 @@ function ProductEdit() {
       body: JSON.stringify(product)
     })
       .then(response => response.json())
-      .then(() => navigate('/'))  // Navigate to home page after save
+      .then(() => navigate('/'))  
       .catch(error => setError(error.message));
   };
 
@@ -49,7 +49,7 @@ function ProductEdit() {
       method: 'DELETE',
     })
       .then(response => response.json())
-      .then(() => navigate('/'))  // Navigate to home page after delete
+      .then(() => navigate('/'))  
       .catch(error => setError(error.message));
   };
 
