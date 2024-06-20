@@ -3,11 +3,12 @@
 .navlogo{
     display: flex;
     align-items: center;
-    margin: auto;
+    justify-content: center;
+    margin: 20px;
 
 }
 .logo{
-    width: 50%;
+    width: 60%;
 }
 
 
@@ -27,6 +28,7 @@
 .navlinks img{
     width: 10%;
     margin-right: 10px;
+    margin-left: 5px;
 }
 
 .active{

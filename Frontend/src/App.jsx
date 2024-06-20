@@ -1,7 +1,6 @@
 
 import './App.css'
 import Navbar from './Components/Navbar/Navbar'
-import Dashboard from './Components/Products/Dashboard';
 import Products from './Components/Products/Products'
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 function App() {
@@ -14,9 +13,8 @@ function App() {
     </div>
     <div className='right'>
     <Routes>
-  
-      <Route path='/Dashboard' element={<Dashboard />} />
-      <Route path='/' element={<Products />} />
+
+      <Route path='/' element={<Products/>} />
     </Routes>
     </div>
      </BrowserRouter>

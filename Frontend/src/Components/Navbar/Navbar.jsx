@@ -15,21 +15,24 @@ const Navbar = () => {
         <div className='navlogo'>
             <img className='logo' src={logo} alt='logo' />
         </div>
+       
+        
         <div className='navlinks'>
             <div onClick={()=>{setMenu("Dashboard")}} className={menu==="Dashboard"?"active":""}>
                <img src={dashboard} alt='icon' />
-                <h2>Dashboard</h2>
-                
+                <h2>Dashboard</h2>   
             </div>
-            <div onClick={()=>{setMenu("Analytics")}} className={menu==="Analytics"?"active":""}> 
+           <div onClick={()=>{setMenu("Analytics")}} className={menu==="Analytics"?"active":""}> 
                <img src={analytics} alt='icon' />
                 <h2>Analytics</h2>
-            </div>
+            </div> 
             <div onClick={()=>{setMenu("Products")}} className={menu==="Products"?"active":""}> 
                <img src={products} alt='icon' />
                 <h2>Products</h2>
             </div>
         </div>
+        
+        
     </div>
   )
 }
