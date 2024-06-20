@@ -58,6 +58,7 @@ function Products() {
               <td>${product.quantity * product.price}</td>
               
             </tr>
+            
           ))}
         </tbody>
       </table>

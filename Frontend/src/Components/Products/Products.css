@@ -38,7 +38,7 @@ table {
   }
   
   .search-input {
-    width: 200%;
+    width: 100%;
     padding: 10px;
     padding-right: 40px; 
     box-sizing: border-box;
@@ -66,13 +66,20 @@ display: flex;
   }
 
   .addbutton{
-    margin-top: 19px;
-    margin-left: 400px;
+    margin-top: 23px;
+    margin-left: 300px;
     background-color: #764EE8;
     width: 200px;
-    
+    height: 30px;
+    border-radius: 5px;
+    color: antiquewhite;
+    border: none;
   }
 
+  .addbutton:hover{
+    background-color: #4103ed;
+   
+  }
   
 
   

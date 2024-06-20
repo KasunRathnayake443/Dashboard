@@ -38,3 +38,6 @@
 .active h2{
     color: rgb(106, 92, 214);
 }
+a:link {
+    text-decoration: none;
+  }
