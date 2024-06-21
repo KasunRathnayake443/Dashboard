@@ -8,15 +8,14 @@ const path = require('path');
 const app = express();
 const port = 5000;
 
-// Middleware
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Connection URI
+
 const uri = "mongodb+srv://admin123:mongodbtest123@cluster0.9hmki5e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-// Create a new MongoClient
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function connectToDatabase() {
@@ -31,7 +30,7 @@ async function connectToDatabase() {
   }
 }
 
-// Configure multer for file uploads
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');

@@ -64,6 +64,22 @@ function ProductEdit() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/products/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        navigate('/');
+      } else {
+        throw new Error('Failed to delete product');
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      setError(error.message);
+    }
+  };
+
   return (
 <div>
     <h2>Edit Product Details</h2>
@@ -71,9 +87,11 @@ function ProductEdit() {
       
       <h3>General Information</h3>
       <form onSubmit={handleSubmit}>
+        <div className='formMain'>
+          <div className='formLeft'>
         <label>
           Product Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input type="text"  value={name} onChange={(e) => setName(e.target.value) } required />
         </label>
         <label>
           Category:
@@ -87,12 +105,21 @@ function ProductEdit() {
           Price Per Unit:
           <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </label>
-        <label>
-          Image:
+        </div>
+        <div className='formRight'>
+        <label className="custom-file-upload">
+          <h3>Product Images</h3>
           <input type="file" onChange={handleImageChange} />
+          + Add Image
         </label>
         {imagePreview && <img src={imagePreview} alt="Preview" className="image-preview" />}
-        <button type="submit">Save Changes</button>
+        </div>
+        </div>
+        <div className='formbuttons'>
+        <button type="button" onClick={handleDelete}   className="deletebutton">Delete</button>
+        <button type="submit" className='savebutton'>Save Changes</button>
+        </div>
+       
       </form>
     </div>
 

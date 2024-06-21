@@ -6,4 +6,6 @@ body{background-color: white;}
     }
 .right {flex: 70%;
     background-color: #F2EEFF;
+    border-radius: 15px;
+    padding: 15px;
 }

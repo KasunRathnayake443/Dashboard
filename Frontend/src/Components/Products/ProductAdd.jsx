@@ -47,9 +47,14 @@ function AddProduct() {
   };
 
   return (
-    <div className="product-edit">
+    <div>
       <h2>Add Product</h2>
+    
+    <div className="product-edit">
+    <h3>General Information</h3>
       <form onSubmit={handleSubmit}>
+      <div className='formMain'>
+          <div className='formLeft'>
         <label>
           Name:
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
@@ -66,15 +71,24 @@ function AddProduct() {
           Price:
           <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </label>
-        <label>
-          Image:
+        </div>
+        <div className='formRight'>
+        <label className="custom-file-upload">
+        <h3>Product Images</h3>
           <input type="file" onChange={handleImageChange} />
+          + Add Image
         </label>
         {imagePreview && <img src={imagePreview} alt="Preview" className="image-preview" />}
-        <button type="submit">Save</button>
+        </div>
+        </div>
+        <div className='formbuttons'>
+        <button type="submit">Add Product</button>
         {error && <p className="error">{error}</p>}
+        </div>
       </form>
     </div>
+    </div>
+    
   );
 }
 
