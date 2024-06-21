@@ -1,71 +1,81 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './ProductEdit.css';
 
-function ProductAdd() {
+function AddProduct() {
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [product, setProduct] = useState({
-    name: '',
-    category: '',
-    quantity: 0,
-    price: 0
-  });
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('category', category);
+    formData.append('quantity', quantity);
+    formData.append('price', price);
+    if (image) {
+      formData.append('image', image);
+    }
 
     try {
       const response = await fetch('http://localhost:5000/products/add', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(product)
+        body: formData
       });
-
       if (response.ok) {
-        const newProduct = await response.json();
-        console.log('Product added:', newProduct);
-        navigate('/', { replace: true }); 
+        navigate('/');
       } else {
-        console.error('Failed to add product:', response.statusText);
+        const errorData = await response.json();
+        throw new Error(errorData.error);
       }
     } catch (error) {
       console.error('Error adding product:', error);
+      setError(error.message);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct(prevProduct => ({
-      ...prevProduct,
-      [name]: value
-    }));
-  };
-
   return (
-    <div className="container">
-      <h1>Add Product</h1>
+    <div className="product-edit">
+      <h2>Add Product</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" value={product.name} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label>Category:</label>
-          <input type="text" name="category" value={product.category} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label>Quantity:</label>
-          <input type="number" name="quantity" value={product.quantity} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label>Price:</label>
-          <input type="number" name="price" value={product.price} onChange={handleChange} required />
-        </div>
-        <button type="submit">Add Product</button>
+        <label>
+          Name:
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        </label>
+        <label>
+          Category:
+          <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
+        </label>
+        <label>
+          Quantity:
+          <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+        </label>
+        <label>
+          Price:
+          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+        </label>
+        <label>
+          Image:
+          <input type="file" onChange={handleImageChange} />
+        </label>
+        {imagePreview && <img src={imagePreview} alt="Preview" className="image-preview" />}
+        <button type="submit">Save</button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );
 }
 
-export default ProductAdd;
+export default AddProduct;
