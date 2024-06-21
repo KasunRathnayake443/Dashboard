@@ -45,9 +45,22 @@ function AddProduct() {
       setError(error.message);
     }
   };
-
+  const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            height: 0.5
+        }}
+    />
+);
+  
   return (
     <div>
+      <div>
+  <p className='p'>Product > <span> Add Product</span>  </p>
+  <ColoredLine color="gray" />
+</div>
       <h2>Add Product</h2>
     
     <div className="product-edit">
