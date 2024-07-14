@@ -8,11 +8,9 @@ const path = require('path');
 const app = express();
 const port = 5000;
 
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 
 const uri = "mongodb+srv://admin123:mongodbtest123@cluster0.9hmki5e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -29,7 +27,6 @@ async function connectToDatabase() {
     throw e;
   }
 }
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -67,6 +64,50 @@ app.post('/products/add', upload.single('image'), async (req, res) => {
   } catch (e) {
     console.error('Error adding product:', e);
     res.status(500).send({ error: 'Error adding product', details: e.message });
+  }
+});
+
+app.get('/products/:id', async (req, res) => {
+  try {
+    const id = req.params.id; 
+    const database = await connectToDatabase();
+    const product = await database.collection('products').findOne({ _id: new ObjectId(id) });
+
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).send({ error: 'Product not found' });
+    }
+  } catch (e) {
+    console.error('Error fetching product:', e);
+    res.status(500).send({ error: 'Error fetching product', details: e.message });
+  }
+});
+
+app.put('/products/:id', upload.single('image'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, category, quantity, price } = req.body;
+    const image = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+    const updateData = { name, category, quantity, price };
+    if (image) updateData.image = image;
+
+    const database = await connectToDatabase();
+    const result = await database.collection('products').updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateData }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const updatedProduct = await database.collection('products').findOne({ _id: new ObjectId(id) });
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ message: 'Failed to update product' });
   }
 });
 

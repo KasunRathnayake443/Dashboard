@@ -25,12 +25,13 @@ function Products() {
 
     const fetchProductCount = async () => {
       try {
-        const response = await fetch('http://localhost:5000/products/count');
+        const response = await fetch('http://localhost:5000/products/');
         if (!response.ok) {
           throw new Error('Network response was not ok: ' + response.statusText);
         }
         const data = await response.json();
-        setTotalProducts(data.count);
+        console.log(products.length)
+        setTotalProducts(data.length);
       } catch (error) {
         console.error('Error fetching product count:', error);
         setError(error.message);

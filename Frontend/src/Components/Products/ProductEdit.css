@@ -146,3 +146,10 @@ margin-top: 20px;
     .custom-file-upload h3{
       color: rgb(135, 135, 135);
     }
+
+    .p{
+      color: #ccc;
+    }
+    .p span{
+      color: #764EE8;
+    }
