@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './ProductEdit.css';
 
 function ProductEdit() {
-  const { id } = useParams();
+    const { id } = useParams();
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -56,27 +56,41 @@ function ProductEdit() {
     if (image) {
       formData.append('image', image);
     }
+
+    // in this kind of things
+      // if you need to check errors, just pass errors to catch block
+      // no need to check it under try
+      // under try block just do the specific execution (add, update or delete)
   
     try {
       const response = await fetch(`http://localhost:5000/products/${id}`, {
         method: 'PUT',
         body: formData,
       });
+
+      //     if (!response.ok) {
+      //   const contentType = response.headers.get("content-type");
+      //   let errorData;
+      //   if (contentType && contentType.indexOf("application/json") !== -1) {
+      //     errorData = await response.json();
+      //   } else {
+      //     const text = await response.text();
+      //     errorData = { message: text };
+      //   }
+      //   console.error('API response error:', errorData);
+      //   throw new Error(errorData.message || 'Failed to update product');
+      // }
+
+      // no need create variables using let, if it initilize at once, just use const, and no need to check content type
   
-      if (!response.ok) {
-        const contentType = response.headers.get("content-type");
-        let errorData;
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-          errorData = await response.json();
-        } else {
-          const text = await response.text();
-          errorData = { message: text };
-        }
+       if (!response.ok) {
+        const errorData = await response.json();
         console.error('API response error:', errorData);
         throw new Error(errorData.message || 'Failed to update product');
       }
   
       navigate('/');
+
     } catch (error) {
       console.error('Error updating product:', error);
       setError(error.message);
@@ -104,25 +118,13 @@ function ProductEdit() {
     }
   };
 
-  const ColoredLine = ({ color }) => (
-    <hr
-      style={{
-        color: color,
-        backgroundColor: color,
-        height: 0.5,
-      }}
-    />
-  );
-
   return (
     <div>
-      <div>
-        <p className="p">
-          Product <span>Edit Product Details</span>
-        </p>
-        <ColoredLine color="gray" />
-      </div>
-      <h2>Edit Product Details</h2>
+
+      {/* <h2>Edit Product Details</h2> */}
+
+      {/* this shoule be better to use the actual product name  */}
+      <h2>Edit Product: {name}</h2>
       <div className="product-edit">
         {loading ? (
           <p>Loading...</p>
